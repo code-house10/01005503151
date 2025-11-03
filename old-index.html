@@ -6,7 +6,7 @@
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MGNDXV94');</script>
+})(window,document,'script','dataLayer','GTM-5Q6ZXWPX');</script>
 <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,7 +64,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <body class="bg-gray-50">
 
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MGNDXV94"
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5Q6ZXWPX"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
@@ -100,7 +100,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <!-- Centered Company Name for Mobile View -->
             <div class="md:hidden absolute left-1/2 -translate-x-1/2 px-2 whitespace-nowrap">
-                <h1 class="font-bold text-gray-800 text-sm">شركة <span class="text-[#e60000]">الهلال</span> لنقل العفش</h1>
+                <h1 class="font-bold text-gray-800 text-sm">شركة <span class="text-[#e60000]">مودرن فيوتشر</span> لنقل العفش</h1>
             </div>
 
             <!-- Right part: Desktop Nav -->
@@ -508,8 +508,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </div> 
 
-    <!-- Service Choice Modal (REMOVED) -->
-    <!-- The service choice modal HTML has been removed to simplify the flow -->
+    <!-- Service Choice Modal -->
+    <div id="service-choice-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg shadow-2xl p-8 w-full max-w-lg relative text-center">
+            <button class="close-modal-button absolute top-4 left-4 text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+            <i class="fas fa-concierge-bell text-4xl text-red-500 mb-4"></i>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4"> ما هي خدمة نقل العفش التي تحتاجها؟</h2>
+            <p class="text-gray-600 mb-8">اختر الخدمة لنساعدك بشكل أفضل وأسرع.</p>
+            <div class="grid grid-cols-2 gap-4">
+                <button class="open-direct-call-button w-full bg-blue-100 hover:bg-blue-200 text-blue-800 font-bold py-4 px-4 rounded-md transition duration-300 text-lg flex flex-col items-center justify-center h-32">
+                    <i class="fas fa-truck-ramp-box text-3xl mb-2"></i>
+                    <span class="text-center">نقل شامل (فك وتركيب)</span>
+                </button>
+                <button class="open-direct-call-button w-full bg-purple-100 hover:bg-purple-200 text-purple-800 font-bold py-4 px-4 rounded-md transition duration-300 text-lg flex flex-col items-center justify-center h-32">
+                    <i class="fas fa-crane text-3xl mb-2"></i>
+                    <span class="text-center">خدمة ونش رفع فقط</span>
+                </button>
+                 <button class="open-direct-call-button w-full bg-amber-100 hover:bg-amber-200 text-amber-800 font-bold py-4 px-4 rounded-md transition duration-300 text-lg flex flex-col items-center justify-center h-32">
+                    <i class="fas fa-truck text-3xl mb-2"></i>
+                    <span class="text-center">خدمة نقل عفش فقط</span>
+                </button>
+                <button class="open-direct-call-button w-full bg-teal-100 hover:bg-teal-200 text-teal-800 font-bold py-4 px-4 rounded-md transition duration-300 text-lg flex flex-col items-center justify-center h-32">
+                   <i class="fas fa-boxes-packing text-3xl mb-2"></i>
+                    <span class="text-center">خدمة تغليف فقط</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Direct Call Modal -->
@@ -551,33 +576,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             });
         });
 
-        // --- Modal Logic (Simplified) ---
+        // --- Modal Logic ---
+        const serviceChoiceModal = document.getElementById('service-choice-modal');
         const directCallModal = document.getElementById('direct-call-modal');
         const openModalButtons = document.querySelectorAll('.open-modal-button');
+        const openDirectCallButtons = document.querySelectorAll('.open-direct-call-button');
         const closeButtons = document.querySelectorAll('.close-modal-button');
 
         const closeAllModals = () => {
+            if (serviceChoiceModal) serviceChoiceModal.classList.add('hidden');
             if (directCallModal) directCallModal.classList.add('hidden');
         };
         
-        // All "open modal" buttons now directly open the "direct call" modal
         openModalButtons.forEach(button => {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
-                if (directCallModal) directCallModal.classList.remove('hidden');
+                if (serviceChoiceModal) serviceChoiceModal.classList.remove('hidden');
             });
         });
 
-        // Close button logic
+        openDirectCallButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                if (serviceChoiceModal) serviceChoiceModal.classList.add('hidden');
+                if (directCallModal) directCallModal.classList.remove('hidden');
+            });
+        });
+        
         closeButtons.forEach(button => {
             button.addEventListener('click', () => {
                 closeAllModals();
             });
         });
 
-        // Close modal if clicking on the background overlay
         window.addEventListener('click', (event) => {
-            if (event.target === directCallModal) {
+            if (event.target === serviceChoiceModal || event.target === directCallModal) {
                 closeAllModals();
             }
         });
